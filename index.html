@@ -1,0 +1,165 @@
+mi html<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Administrador de Pacientes</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/lumen/bootstrap.min.css" integrity="sha384-GzaBcW6yPIfhF+6VpKMjxbTx6tvR/yRd/yJub90CqoIn2Tz4rRXlSpTFYMKHCifX" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+<body>
+
+  <div class="container">
+    <h1 class="text-center">Agenda de Citas para Mascotas</h1>
+
+    <!-- Formulario de nueva cita -->
+    <form id="formulario">
+      <div class="form-group">
+        <label for="mascota">Nombre de la mascota</label>
+        <input type="text" id="mascota" class="form-control" placeholder="Nombre de la mascota" required />
+      </div>
+
+      <div class="form-group">
+        <label for="propietario">Nombre del propietario</label>
+        <input type="text" id="propietario" class="form-control" placeholder="Nombre del propietario" required />
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input type="text" id="telefono" class="form-control" placeholder="Teléfono" required />
+      </div>
+
+      <div class="form-group">
+        <label for="fecha">Fecha de la cita</label>
+        <input type="date" id="fecha" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="hora">Hora de la cita</label>
+        <input type="time" id="hora" class="form-control" required />
+      </div>
+
+      <div class="form-group">
+        <label for="sintomas">Síntomas</label>
+        <textarea id="sintomas" class="form-control" placeholder="Síntomas de la mascota" required></textarea>
+      </div>
+
+      <!-- Campo para subir la foto de la mascota -->
+      <div class="form-group">
+        <label for="foto">Foto de la mascota</label>
+        <input type="file" id="foto" class="form-control" accept="image/*" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Agregar Cita</button>
+    </form>
+
+    <h2 class="text-center">Citas Programadas</h2>
+    <div id="contenedor-citas">
+      <!-- Aquí se mostrarán las citas -->
+    </div>
+  </div>
+
+  <!-- Agregar el script de tu archivo JS -->
+  <script>
+    // Seleccionar los elementos del formulario y el contenedor de citas
+    const mascotaInput = document.getElementById('mascota');
+    const propietarioInput = document.getElementById('propietario');
+    const telefonoInput = document.getElementById('telefono');
+    const fechaInput = document.getElementById('fecha');
+    const horaInput = document.getElementById('hora');
+    const sintomasInput = document.getElementById('sintomas');
+    const fotoInput = document.getElementById('foto');
+    const formulario = document.getElementById('formulario');
+    const contenedorCitas = document.getElementById('contenedor-citas');
+
+    // Función para crear una nueva cita
+    function nuevaCita(e) {
+      e.preventDefault();
+
+      // Obtener los valores del formulario
+      const mascota = mascotaInput.value;
+      const propietario = propietarioInput.value;
+      const telefono = telefonoInput.value;
+      const fecha = fechaInput.value;
+      const hora = horaInput.value;
+      const sintomas = sintomasInput.value;
+      const foto = fotoInput.files[0];
+
+      // Validar que todos los campos estén completos
+      if (!mascota || !propietario || !telefono || !fecha || !hora || !sintomas || !foto) {
+        alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      // Crear un objeto cita
+      const cita = {
+        mascota,
+        propietario,
+        telefono,
+        fecha,
+        hora,
+        sintomas,
+        foto: URL.createObjectURL(foto), // Crear una URL de la imagen seleccionada
+      };
+
+      // Mostrar la cita en el contenedor
+      mostrarCita(cita);
+
+      // Limpiar el formulario
+      formulario.reset();
+    }
+
+    // Función para mostrar la cita
+    function mostrarCita(cita) {
+      const { mascota, propietario, telefono, fecha, hora, sintomas, foto } = cita;
+
+      const divCita = document.createElement('div');
+      divCita.classList.add('cita', 'p-3');
+
+      // Crear los elementos de la cita
+      const mascotaParrafo = document.createElement('h2');
+      mascotaParrafo.classList.add('card-title', 'font-weight-bolder');
+      mascotaParrafo.textContent = mascota;
+
+      const propietarioParrafo = document.createElement('p');
+      propietarioParrafo.innerHTML = `<span class="font-weight-bolder">Propietario: </span>${propietario}`;
+
+      const telefonoParrafo = document.createElement('p');
+      telefonoParrafo.innerHTML = `<span class="font-weight-bolder">Teléfono: </span>${telefono}`;
+
+      const fechaParrafo = document.createElement('p');
+      fechaParrafo.innerHTML = `<span class="font-weight-bolder">Fecha: </span>${fecha}`;
+
+      const horaParrafo = document.createElement('p');
+      horaParrafo.innerHTML = `<span class="font-weight-bolder">Hora: </span>${hora}`;
+
+      const sintomasParrafo = document.createElement('p');
+      sintomasParrafo.innerHTML = `<span class="font-weight-bolder">Síntomas: </span>${sintomas}`;
+
+      // Mostrar la foto de la mascota
+      const fotoImg = document.createElement('img');
+      fotoImg.src = foto; // Establecer la fuente de la imagen
+      fotoImg.alt = `Foto de ${mascota}`;
+      fotoImg.classList.add('img-fluid', 'mb-3'); // Opcional: agregar clases de estilo a la imagen
+
+      // Agregar los elementos de la cita al contenedor de la cita
+      divCita.appendChild(fotoImg);  // Agregar la foto
+      divCita.appendChild(mascotaParrafo);
+      divCita.appendChild(propietarioParrafo);
+      divCita.appendChild(telefonoParrafo);
+      divCita.appendChild(fechaParrafo);
+      divCita.appendChild(horaParrafo);
+      divCita.appendChild(sintomasParrafo);
+
+      // Agregar la cita al contenedor de citas
+      contenedorCitas.appendChild(divCita);
+    }
+
+    // Agregar el evento de envío del formulario
+    formulario.addEventListener('submit', nuevaCita);
+  </script>
+
+</body>
+</html>

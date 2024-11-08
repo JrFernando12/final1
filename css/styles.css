@@ -1,0 +1,90 @@
+html {
+  min-height: 100vh;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: url(../img/foto1.jpeg) no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.titulo {
+  font-weight: bold;
+  font-size: 3rem;
+  text-transform: uppercase;
+  color: #1d2d23;
+}
+.container {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+}
+header {
+  margin-top: 3rem;
+}
+header h1 {
+  color: white;
+}
+.lista-citas .cita {
+  border-bottom: 1px solid #e1e1e1;
+  padding: 2rem;
+  padding-bottom: 3rem;
+}
+.lista-citas .cita:last-of-type {
+  border-bottom: 0;
+}
+.lista-citas .cita p {
+  margin: 0;
+}
+.lista-citas .cita button {
+  margin-top: 1rem !important;
+}
+.lista-citas .cita span {
+  font-weight: bold;
+}
+textarea {
+  height: 100px !important;
+}
+svg {
+  width: 21px;
+}
+/* Estilo para las imágenes de las mascotas */
+.cita img {
+  max-width: 150px; /* Establece un ancho máximo */
+  max-height: 150px; /* Establece una altura máxima */
+  object-fit: cover; /* Asegura que la imagen se recorte de manera adecuada */
+  border-radius: 10px; /* Opcional: agrega bordes redondeados */
+  margin-bottom: 10px; /* Espacio debajo de la imagen */
+  display: block; /* Asegura que la imagen se muestre como bloque */
+  margin-left: auto;
+  margin-right: auto; /* Centra la imagen */
+  transition: all 0.3s ease; /* Agrega una transición suave para los cambios */
+}
+
+/* Efecto al pasar el mouse por la imagen */
+.cita img:hover {
+  transform: scale(1.1); /* Aumenta el tamaño de la imagen */
+  box-shadow: 0 0 15px 5px rgb(255, 0, 255), 0 0 25px 10px rgb(0, 255, 255), 0 0 35px 15px rgb(0, 255, 0); /* Efecto RGB alrededor de la imagen */
+}
+
+/* Estilo para los contenedores de las citas (ajustamos la imagen a la izquierda y el nombre a la derecha) */
+.cita {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px; /* Espacio entre la imagen y el texto */
+}
+
+/* Ajustes para el nombre de la mascota */
+.cita h2 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+  flex-grow: 1; /* Permite que el nombre ocupe el espacio disponible */
+}
